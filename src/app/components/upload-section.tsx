@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { Upload, Camera } from 'lucide-react';
-import { UploadState } from '../lib/types';
+import { UploadState } from '@/app/lib/types';
 
 interface UploadSectionProps {
     onUpload: (file: File) => void;

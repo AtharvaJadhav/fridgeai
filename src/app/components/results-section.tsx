@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { AnalysisResult } from '../lib/types';
+import { AnalysisResult } from '@/app/lib/types';
 import IngredientCard from './ingredient-card';
 import { ArrowLeft, ShoppingCart } from 'lucide-react';
 import ShoppingListModal from './shopping-list-modal';

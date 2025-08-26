@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Recipe } from '../lib/types';
+import { Recipe } from '@/app/lib/types';
 import { Clock, ChefHat, Globe, CheckCircle, XCircle, ChevronDown, ChevronUp, Utensils } from 'lucide-react';
 
 interface RecipeCardProps {
