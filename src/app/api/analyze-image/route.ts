@@ -1,21 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
-
-interface RawIngredient {
-  name?: string;
-  estimated_quantity?: string;
-  confidence?: number;
-  freshness?: string;
-  estimatedExpiryDays?: number;
-  category?: string;
-  nutritionalInfo?: {
-    servingSize?: string;
-    calories?: number;
-    protein?: number;
-    carbs?: number;
-    fat?: number;
-  };
-}
+import { Ingredient } from '../../lib/types';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -183,7 +168,7 @@ Do not include any explanatory text - only the JSON response.`
     }
 
     // Validate each ingredient
-    const validatedIngredients = parsedResponse.ingredients.map((ingredient: RawIngredient, index: number) => {
+    const validatedIngredients = parsedResponse.ingredients.map((ingredient: Ingredient, index: number) => {
       if (!ingredient.name || typeof ingredient.name !== 'string') {
         throw new Error(`Invalid ingredient name at index ${index}`);
       }
@@ -239,7 +224,7 @@ Do not include any explanatory text - only the JSON response.`
     });
 
     // Filter out low confidence detections (below 0.3)
-    const filteredIngredients = validatedIngredients.filter((ingredient) => ingredient.confidence >= 0.3);
+    const filteredIngredients = validatedIngredients.filter((ingredient: Ingredient) => ingredient.confidence >= 0.3);
 
     if (filteredIngredients.length === 0) {
       return NextResponse.json(

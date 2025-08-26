@@ -3,6 +3,7 @@ services:
     name: fridgeai
     env: node
     plan: starter
+    nodeVersion: 20
     buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:

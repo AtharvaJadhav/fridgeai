@@ -1,24 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
-
-interface RecipeIngredients {
-  available: string[];
-  missing: string[];
-}
-
-interface Recipe {
-  name: string;
-  ingredients: RecipeIngredients;
-  instructions: string[];
-  prepTime: string;
-  cookTime: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  cuisineType: string;
-}
-
-interface RecipeResponse {
-  recipes: Recipe[];
-}
+import { Recipe, RecipeResponse } from '../../lib/types';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
