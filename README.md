@@ -6,86 +6,50 @@
 
 ## Features
 
-### **AI-Powered Ingredient Detection**
-- **Computer Vision Analysis**: Upload a photo of your refrigerator contents
-- **Smart Recognition**: Automatically identifies food items with high accuracy
-- **Quantity Estimation**: Determines approximate amounts (e.g., "2 apples", "1 liter of milk")
-- **Freshness Assessment**: Visual analysis for fresh/ripe/overripe/spoiled status
-- **Expiry Prediction**: Estimates days until expiration based on appearance
-- **Food Categorization**: Classifies items as produce, dairy, protein, pantry, or condiments
+- **AI Ingredient Detection**: Upload a fridge photo to automatically identify food items
+- **Nutritional Analysis**: Get detailed nutrition info, freshness status, and expiry dates
+- **Recipe Recommendations**: AI-generated recipes based on your available ingredients
+- **Shopping List Generator**: Smart suggestions for complementary grocery items
+- **Modern UI**: Clean, responsive interface with interactive elements
 
-### **Comprehensive Nutritional Information**
-- **Per-Serving Nutrition**: Calories, protein, carbs, and fat content
-- **Serving Size Details**: Clear portion information for each ingredient
-- **Confidence Scoring**: AI confidence levels for each detection
-- **Expandable Cards**: Click to reveal detailed nutritional breakdown
+## Tech Stack
 
-### **Intelligent Recipe Recommendations**
-- **AI-Generated Recipes**: 3-5 personalized recipe suggestions
-- **Ingredient Analysis**: Shows available vs. missing ingredients
-- **Difficulty Levels**: Easy, Medium, or Hard cooking complexity
-- **Time Estimates**: Prep and cook time for each recipe
-- **Cuisine Types**: Various international cooking styles
-- **Step-by-Step Instructions**: Detailed cooking directions
+- Next.js 15, React 19, TypeScript
+- Tailwind CSS 4
+- OpenAI GPT-4o Vision API
+- Deployed on Render
 
-### **Smart Shopping List Generator**
-- **Complementary Items**: AI suggests items that work with your ingredients
-- **Recipe Pattern Recognition**: Identifies common cooking combinations
-- **Missing Staples Detection**: Essential items often overlooked
-- **Category Organization**: Organized by grocery store sections
-- **Interactive Checkboxes**: Track shopping progress
-- **Export Options**: Copy to clipboard or print-friendly format
+## Quick Start
 
-### **Modern User Interface**
-- **Responsive Design**: Works seamlessly on all devices
-- **Beautiful Visuals**: Clean, modern interface with smooth animations
-- **Color-Coded Categories**: Easy visual identification of food types
-- **Expandable Components**: Interactive elements for better user experience
-- **Loading States**: Clear feedback during AI processing
+```bash
+# Install dependencies
+npm install
 
-## **Technology Stack**
+# Run development server
+npm run dev
 
-- **Frontend**: Next.js 15, React 19, TypeScript
-- **Styling**: Tailwind CSS 4
-- **AI Integration**: OpenAI GPT-4o Vision API
-- **Deployment**: Render (Production)
-- **Image Processing**: Base64 encoding for AI analysis
+# Build for production
+npm run build
 
-## **How It Works**
+# Start production server
+npm start
+```
 
-1. **Upload Photo**: Take a clear photo of your refrigerator contents
-2. **AI Analysis**: Our AI analyzes the image and identifies all food items
-3. **Get Insights**: View detailed information about freshness, nutrition, and expiry
-4. **Recipe Ideas**: Generate personalized recipe suggestions based on your ingredients
-5. **Shopping List**: Get AI-powered suggestions for complementary grocery items
-6. **Export & Share**: Copy shopping lists to clipboard or print for shopping trips
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-##  **Key Benefits**
+## Environment Variables
 
-- **Reduce Food Waste**: Track expiry dates and freshness
-- **Meal Planning**: Discover recipes using ingredients you already have
-- **Smart Shopping**: Buy only what you need to complete meals
-- **Nutrition Awareness**: Understand the nutritional value of your food
-- **Time Saving**: No more manual inventory tracking
-- **Cost Effective**: Minimize unnecessary grocery purchases
+Create a `.env.local` file with your OpenAI API key:
 
-## **Use Cases**
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+```
 
-- **Home Cooks**: Plan meals around available ingredients
-- **Busy Families**: Quick inventory checks and meal suggestions
-- **Health Conscious**: Track nutritional intake and food freshness
-- **Budget Minded**: Optimize grocery shopping and reduce waste
-- **Meal Prep**: Efficient planning for weekly cooking sessions
+## How It Works
 
-## **Future Enhancements**
+1. Upload a photo of your refrigerator contents
+2. AI analyzes the image and identifies food items
+3. Get detailed insights about freshness, nutrition, and expiry
+4. Generate personalized recipe suggestions
+5. Create smart shopping lists for complementary items
 
-- **Barcode Scanning**: Quick product identification
-- **Meal History**: Track what you've cooked and enjoyed
-- **Dietary Restrictions**: Filter recipes by dietary needs
-- **Shopping Reminders**: Notifications for low-stock items
-- **Recipe Sharing**: Community-driven recipe suggestions
-- **Integration**: Connect with grocery delivery services
-
----
-
-**FridgeAI** - Making your refrigerator smarter, one photo at a time! 📸✨
