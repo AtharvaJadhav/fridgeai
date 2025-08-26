@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { AnalysisResult } from '../lib/types';
 import IngredientCard from './ingredient-card';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ShoppingCart } from 'lucide-react';
+import ShoppingListModal from './shopping-list-modal';
 
 interface ResultsSectionProps {
     result: AnalysisResult;
@@ -10,12 +12,51 @@ interface ResultsSectionProps {
     onBack: () => void;
 }
 
+interface ShoppingSuggestion {
+    item: string;
+    category: string;
+    reason: string;
+}
+
 export default function ResultsSection({ result, uploadedFile, onBack }: ResultsSectionProps) {
+    const [isShoppingListOpen, setIsShoppingListOpen] = useState(false);
+    const [shoppingSuggestions, setShoppingSuggestions] = useState<ShoppingSuggestion[]>([]);
+    const [isLoadingShoppingList, setIsLoadingShoppingList] = useState(false);
+
     if (!result || !result.ingredients || result.ingredients.length === 0) {
         return null;
     }
 
     const imageUrl = URL.createObjectURL(uploadedFile);
+
+    const handleGenerateShoppingList = async () => {
+        setIsLoadingShoppingList(true);
+        setIsShoppingListOpen(true);
+
+        try {
+            const response = await fetch('/api/generate-shopping-list', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ingredients: result.ingredients
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to generate shopping list');
+            }
+
+            const data = await response.json();
+            setShoppingSuggestions(data.suggestions);
+        } catch (error) {
+            console.error('Error generating shopping list:', error);
+            alert('Failed to generate shopping list. Please try again.');
+        } finally {
+            setIsLoadingShoppingList(false);
+        }
+    };
 
     return (
         <div className="max-w-6xl mx-auto">
@@ -63,9 +104,31 @@ export default function ResultsSection({ result, uploadedFile, onBack }: Results
                                 <IngredientCard key={index} ingredient={ingredient} />
                             ))}
                         </div>
+
+                        {/* Shopping List Button */}
+                        <div className="mt-6 pt-6 border-t border-gray-200">
+                            <button
+                                onClick={handleGenerateShoppingList}
+                                className="w-full inline-flex items-center justify-center px-4 py-3 border border-transparent text-sm font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors"
+                            >
+                                <ShoppingCart className="h-4 w-4 mr-2" />
+                                Generate Shopping List
+                            </button>
+                            <p className="text-xs text-gray-500 mt-2 text-center">
+                                Get AI-powered suggestions for complementary grocery items
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {/* Shopping List Modal */}
+            <ShoppingListModal
+                isOpen={isShoppingListOpen}
+                onClose={() => setIsShoppingListOpen(false)}
+                suggestions={shoppingSuggestions}
+                isLoading={isLoadingShoppingList}
+            />
         </div>
     );
 }
