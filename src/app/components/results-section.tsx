@@ -37,6 +37,7 @@ export default function ResultsSection({ result, uploadedFile, onBack }: Results
                         Your Fridge Photo
                     </h3>
                     <div className="relative">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={imageUrl}
                             alt="Uploaded fridge photo"

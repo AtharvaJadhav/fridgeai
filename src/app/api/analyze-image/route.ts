@@ -161,7 +161,7 @@ Do not include any explanatory text - only the JSON response.`
         }
         throw new Error('No JSON found in response');
       }
-    } catch (parseError) {
+    } catch (error) {
       console.error('Failed to parse OpenAI response:', content);
       
       // Check if the AI detected no food items in the error response
@@ -257,7 +257,11 @@ Do not include any explanatory text - only the JSON response.`
     
     // Handle specific OpenAI errors
     if (error && typeof error === 'object' && 'code' in error) {
-      const openaiError = error as any;
+      interface OpenAIError {
+        code: string;
+        message?: string;
+      }
+      const openaiError = error as OpenAIError;
       
       switch (openaiError.code) {
         case 'rate_limit_exceeded':

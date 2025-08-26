@@ -1,10 +1,18 @@
 import OpenAI from 'openai';
 
+interface ImageAnalysisResult {
+  ingredients: Array<{
+    name: string;
+    quantity: string;
+    expiry: string;
+  }>;
+}
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export async function analyzeImage(imageBase64: string): Promise<any> {
+export async function analyzeImage(imageBase64: string): Promise<ImageAnalysisResult> {
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4-vision-preview",

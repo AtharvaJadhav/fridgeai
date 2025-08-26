@@ -108,7 +108,7 @@ IMPORTANT: You must respond with ONLY a JSON object. Do not include any other te
       } else {
         throw new Error('No JSON found in response');
       }
-    } catch (parseError) {
+    } catch (error) {
       console.error('Failed to parse OpenAI response:', content);
       throw new Error('Invalid response format from OpenAI');
     }
@@ -119,7 +119,7 @@ IMPORTANT: You must respond with ONLY a JSON object. Do not include any other te
     }
 
     // Validate each recipe
-    const validatedRecipes = parsedResponse.recipes.map((recipe: any, index: number) => {
+    const validatedRecipes = parsedResponse.recipes.map((recipe: Recipe, index: number) => {
       if (!recipe.name || typeof recipe.name !== 'string') {
         throw new Error(`Invalid recipe name at index ${index}`);
       }
@@ -168,7 +168,11 @@ IMPORTANT: You must respond with ONLY a JSON object. Do not include any other te
     
     // Handle specific OpenAI errors
     if (error && typeof error === 'object' && 'code' in error) {
-      const openaiError = error as any;
+      interface OpenAIError {
+        code: string;
+        message?: string;
+      }
+      const openaiError = error as OpenAIError;
       
       switch (openaiError.code) {
         case 'rate_limit_exceeded':

@@ -17,8 +17,10 @@ export default function EmptyState() {
                 </h3>
 
                 <p className="text-gray-500 mb-6">
-                    Upload a photo of your refrigerator to get started.
-                    We'll analyze the image and identify all the food items for you.
+                    Upload a photo of your refrigerator contents to get started with AI-powered food analysis.
+                </p>
+                <p className="text-gray-400 text-sm">
+                    Our AI will identify ingredients, assess freshness, and suggest recipes based on what&apos;s in your fridge.
                 </p>
 
                 <div className="space-y-2 text-sm text-gray-400">
