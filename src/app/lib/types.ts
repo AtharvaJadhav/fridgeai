@@ -12,4 +12,5 @@ export interface UploadState {
   isUploading: boolean;
   error: string | null;
   result: AnalysisResult | null;
+  uploadedFile: File | null;
 }

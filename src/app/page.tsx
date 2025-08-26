@@ -12,6 +12,7 @@ export default function Home() {
     isUploading: false,
     error: null,
     result: null,
+    uploadedFile: null,
   });
 
   const handleUpload = async (file: File) => {
@@ -19,6 +20,7 @@ export default function Home() {
       isUploading: true,
       error: null,
       result: null,
+      uploadedFile: file,
     });
 
     try {
@@ -40,14 +42,25 @@ export default function Home() {
         isUploading: false,
         error: null,
         result,
+        uploadedFile: file,
       });
     } catch (error) {
       setUploadState({
         isUploading: false,
         error: error instanceof Error ? error.message : 'An error occurred',
         result: null,
+        uploadedFile: null,
       });
     }
+  };
+
+  const handleBack = () => {
+    setUploadState({
+      isUploading: false,
+      error: null,
+      result: null,
+      uploadedFile: null,
+    });
   };
 
   return (
@@ -56,10 +69,16 @@ export default function Home() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-8">
-          <UploadSection onUpload={handleUpload} uploadState={uploadState} />
+          {!uploadState.result && (
+            <UploadSection onUpload={handleUpload} uploadState={uploadState} />
+          )}
 
-          {uploadState.result && (
-            <ResultsSection result={uploadState.result} />
+          {uploadState.result && uploadState.uploadedFile && (
+            <ResultsSection
+              result={uploadState.result}
+              uploadedFile={uploadState.uploadedFile}
+              onBack={handleBack}
+            />
           )}
 
           {!uploadState.isUploading && !uploadState.result && !uploadState.error && (
