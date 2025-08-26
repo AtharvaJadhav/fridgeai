@@ -138,23 +138,35 @@ Do not include any explanatory text - only the JSON response.`
         // Check if the AI detected no food items
         if (content.toLowerCase().includes('no food') || 
             content.toLowerCase().includes('unable to detect') ||
-            content.toLowerCase().includes('no food items')) {
+            content.toLowerCase().includes('no food items') ||
+            content.toLowerCase().includes('empty') ||
+            content.toLowerCase().includes('nothing') ||
+            content.toLowerCase().includes('no ingredients')) {
           return NextResponse.json(
-            { error: 'No food items detected in the image. Please upload a photo of your refrigerator contents.' },
+            { 
+              error: 'No food items detected in the image. Please try again with a clearer photo of your refrigerator contents.',
+              type: 'no_food_detected'
+            },
             { status: 400 }
           );
         }
         throw new Error('No JSON found in response');
       }
-    } catch (error) {
+    } catch (parseError) {
       console.error('Failed to parse OpenAI response:', content);
       
       // Check if the AI detected no food items in the error response
       if (content.toLowerCase().includes('no food') || 
           content.toLowerCase().includes('unable to detect') ||
-          content.toLowerCase().includes('no food items')) {
+          content.toLowerCase().includes('no food items') ||
+          content.toLowerCase().includes('empty') ||
+          content.toLowerCase().includes('nothing') ||
+          content.toLowerCase().includes('no ingredients')) {
         return NextResponse.json(
-          { error: 'No food items detected in the image. Please upload a photo of your refrigerator contents.' },
+          { 
+            error: 'No food items detected in the image. Please try again with a clearer photo of your refrigerator contents.',
+            type: 'no_food_detected'
+          },
           { status: 400 }
         );
       }
@@ -165,6 +177,17 @@ Do not include any explanatory text - only the JSON response.`
     // Validate the response structure
     if (!parsedResponse.ingredients || !Array.isArray(parsedResponse.ingredients)) {
       throw new Error('Invalid response structure from OpenAI');
+    }
+
+    // Check if no ingredients were detected
+    if (parsedResponse.ingredients.length === 0) {
+      return NextResponse.json(
+        { 
+          error: 'No food items were detected in the image. Please try again with a clearer photo showing your refrigerator contents.',
+          type: 'no_food_detected'
+        },
+        { status: 400 }
+      );
     }
 
     // Validate each ingredient

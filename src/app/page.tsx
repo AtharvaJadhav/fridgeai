@@ -37,6 +37,10 @@ export default function Home() {
       });
 
       if (!response.ok) {
+        const errorData = await response.json();
+        if (errorData.type === 'no_food_detected') {
+          throw new Error('no_food_detected');
+        }
         throw new Error('Failed to analyze image');
       }
 
@@ -49,9 +53,24 @@ export default function Home() {
         uploadedFile: file,
       });
     } catch (error) {
+      let errorMessage = 'An unexpected error occurred. Please try again.';
+
+      if (error instanceof Error) {
+        // Handle specific error types
+        if (error.message === 'no_food_detected') {
+          errorMessage = 'No food items detected in the image. Please try again with a clearer photo of your refrigerator contents.';
+        } else if (error.message.includes('Failed to fetch')) {
+          errorMessage = 'Network error. Please check your connection and try again.';
+        } else if (error.message.includes('Failed to analyze image')) {
+          errorMessage = 'Image analysis failed. Please try with a different image.';
+        } else {
+          errorMessage = error.message;
+        }
+      }
+
       setUploadState({
         isUploading: false,
-        error: error instanceof Error ? error.message : 'An error occurred',
+        error: errorMessage,
         result: null,
         uploadedFile: null,
       });
