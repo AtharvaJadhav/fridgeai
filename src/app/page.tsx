@@ -5,7 +5,7 @@ import Header from './components/header';
 import UploadSection from './components/upload-section';
 import ResultsSection from './components/results-section';
 import EmptyState from './components/empty-state';
-import { UploadState, AnalysisResult, Recipe } from '@/lib/types';
+import { UploadState, AnalysisResult, Recipe } from './lib/types';
 import RecipeCard from './components/recipe-card';
 
 export default function Home() {

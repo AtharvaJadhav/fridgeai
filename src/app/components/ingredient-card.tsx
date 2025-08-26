@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Ingredient } from '@/lib/types';
+import { Ingredient } from '../lib/types';
 import { Package, TrendingUp, Clock, Leaf, UtensilsCrossed, Info, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface IngredientCardProps {

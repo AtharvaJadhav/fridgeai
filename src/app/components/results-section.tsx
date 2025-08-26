@@ -1,6 +1,6 @@
 'use client';
 
-import { AnalysisResult } from '@/lib/types';
+import { AnalysisResult } from '../lib/types';
 import IngredientCard from './ingredient-card';
 import { ArrowLeft } from 'lucide-react';
 

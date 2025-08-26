@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { Upload, Camera } from 'lucide-react';
-import { UploadState } from '@/lib/types';
+import { UploadState } from '../lib/types';
 
 interface UploadSectionProps {
     onUpload: (file: File) => void;
@@ -47,8 +47,8 @@ export default function UploadSection({ onUpload, uploadState }: UploadSectionPr
         <div className="max-w-2xl mx-auto">
             <div
                 className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-colors ${dragActive
-                        ? 'border-blue-400 bg-blue-50'
-                        : 'border-gray-300 hover:border-gray-400'
+                    ? 'border-blue-400 bg-blue-50'
+                    : 'border-gray-300 hover:border-gray-400'
                     } ${uploadState.isUploading ? 'opacity-50 pointer-events-none' : ''}`}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
